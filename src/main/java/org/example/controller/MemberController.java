@@ -4,6 +4,8 @@ import org.example.entity.Member;
 import org.example.service.MemberService;
 import org.example.ui.ConsoleMenu;
 
+import static org.example.ui.ConsoleMenu.*; // public static으로 선언한 상수 import
+
 public class MemberController {
     private final MemberService memberService;
     private final ConsoleMenu consoleMenu;
@@ -20,14 +22,14 @@ public class MemberController {
             if (currentUser == null) {
                 // 비회원 메뉴
                 switch (consoleMenu.showMainMenu()) {
-                    case 0:
+                    case MAIN_EXIT:
                         consoleMenu.printExit();
                         running = false;
                         break;
-                    case 1:
+                    case MAIN_JOIN:
                         handleRegister();
                         break;
-                    case 2:
+                    case MAIN_LOGIN:
                         handleLogin();
                         break;
                     default:
@@ -36,42 +38,44 @@ public class MemberController {
             } else {
                 // 사용자 메뉴
                 switch (consoleMenu.showUserMenu()) {
-                    case 0: // 로그아웃
+                    case USER_LOGOUT: // 로그아웃
                         consoleMenu.printLogout();
                         currentUser = null;
                         break;
 
-                    case 1: // 로그인 정보 확인
+                    case USER_VIEW_INFO: // 로그인 정보 확인
                         consoleMenu.printMemberInfo(currentUser);
                         break;
-
-                    case 2: // 소지금 확인
-                        consoleMenu.printBalance(currentUser);
+                    case USER_VIEW_CASH_BAL: // 소지금 확인
+                        consoleMenu.printCashBalance(currentUser);
+                        break;
+                    case USER_VIEW_BANK_BAL: // 은행잔액 확인
+                        consoleMenu.printBankBalance(currentUser);
                         break;
 
-                    case 3: // 입금
+                    case USER_DEPOSIT_BANK: // 입금
                         double inAmountt = consoleMenu.promptAmount("입금할 금액: ");
                         try {
                             currentUser.deposit(inAmountt);
                             memberService.update(currentUser);
-                            consoleMenu.printBalance(currentUser);
+                            consoleMenu.printBankBalance(currentUser);
                         } catch (IllegalArgumentException e) {
                             System.out.println("입금 오류: " + e.getMessage());
                         }
                         break;
 
-                    case 4: // 출금
+                    case USER_WITHDRAW_BANK: // 출금
                         double outAmount = consoleMenu.promptAmount("출금할 금액: ");
                         try {
                             currentUser.withdraw(outAmount);
                             memberService.update(currentUser);
-                            consoleMenu.printBalance(currentUser);
+                            consoleMenu.printBankBalance(currentUser);
                         } catch (IllegalArgumentException e) {
                             System.out.println("출금 오류: " + e.getMessage());
                         }
                         break;
 
-                    case 5: // 송금
+                    case USER_TRANSFER: // 송금
                         //송금할 대상
                         String transferTarget = consoleMenu.promptTransferTarget("송금할 대상 id: ");
 
@@ -83,13 +87,13 @@ public class MemberController {
                                     amount
                             );
                             if (transferOk) {
-                                consoleMenu.printBalance(currentUser);
+                                consoleMenu.printBankBalance(currentUser);
                                 System.out.println("송금이 완료되었습니다.");
                             } else {
                                 System.out.println("송금 실패: 대상 계정이 없거나 잔액이 부족합니다.");
                             }
 
-                            consoleMenu.printBalance(currentUser);
+                            consoleMenu.printBankBalance(currentUser);
 
                         }catch (IllegalArgumentException e) {
                             System.out.println("송금 오류: " + e.getMessage());

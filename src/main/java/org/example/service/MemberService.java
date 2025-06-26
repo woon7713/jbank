@@ -2,7 +2,6 @@ package org.example.service;
 
 
 import org.example.entity.Member;
-import org.example.repository.JsonMemberRepository;
 import org.example.repository.MemberRepository;
 import org.example.util.PasswordUtil;
 
@@ -56,7 +55,7 @@ public class MemberService {
             return false;
         }
 
-        if (amount <= 0 || from.getBalance() < amount) {
+        if (amount <= 0 || from.getBankBalance() < amount) {
             return false;
         }
 

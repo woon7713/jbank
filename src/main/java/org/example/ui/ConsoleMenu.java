@@ -5,14 +5,38 @@ import org.example.entity.Member;
 import java.util.Scanner;
 
 public class ConsoleMenu {
+    // ─── 메인 메뉴 상수 ───
+    public static final int MAIN_EXIT    = 0;
+    public static final int MAIN_JOIN    = 1;
+    public static final int MAIN_LOGIN   = 2;
+
+    // ─── 사용자 메뉴 상수 ───
+    public static final int USER_LOGOUT          = 0;
+    public static final int USER_VIEW_INFO       = 1;
+    public static final int USER_VIEW_CASH_BAL   = 2;
+
+    public static final int USER_VIEW_BANK_BAL   = 3;
+
+    public static final int USER_DEPOSIT_BANK    = 4;
+    public static final int USER_WITHDRAW_BANK   = 5;
+    public static final int USER_TRANSFER        = 8;
+    public static final int USER_MINING          = 9;
+
+    // ─── 관리자 메뉴 상수 ───
+    public static final int ADMIN_LIST_MEMBERS   = 1;
+    public static final int ADMIN_ADD_BALANCE     = 2;
+    public static final int ADMIN_DEDUCT_BALANCE  = 3;
+    public static final int ADMIN_CHANGE_LEVEL    = 4;
+    public static final int ADMIN_LOGOUT         = 5;
+
     private final Scanner sc = new Scanner(System.in);
 
     // 메인 메뉴
     public int showMainMenu() {
         System.out.println("\n\n== J Bank ==");
-        System.out.println("0) 종료");
-        System.out.println("1) 회원가입");
-        System.out.println("2) 로그인");
+        System.out.printf("%d) 종료%n", MAIN_EXIT);
+        System.out.printf("%d) 회원가입%n", MAIN_JOIN);
+        System.out.printf("%d) 로그인%n", MAIN_LOGIN);
         System.out.print("선택> ");
         return readInt();
     }
@@ -46,13 +70,13 @@ public class ConsoleMenu {
     // 사용자 메뉴 출력
     public int showUserMenu() {
         System.out.println("\n\n=== 사용자 메뉴 ===");
-        System.out.println("0) 로그아웃");
-        System.out.println("1) 로그인 정보 조회");
-        System.out.println("2) 소지금 확인");
-        System.out.println("3) 입금");
-        System.out.println("4) 출금");
-        System.out.println("5) 송금");
-        System.out.println("6) 채굴");
+        System.out.printf("%d) 로그아웃%n",           USER_LOGOUT);
+        System.out.printf("%d) 로그인 정보 조회%n",    USER_VIEW_INFO);
+        System.out.printf("%d) 소지금 확인%n",        USER_VIEW_CASH_BAL);
+        System.out.printf("%d) 은행 잔액 확인%n",      USER_VIEW_BANK_BAL);
+        System.out.printf("%d) 은행 입금%n",          USER_DEPOSIT_BANK);
+        System.out.printf("%d) 은행 출금%n",          USER_WITHDRAW_BANK);
+        System.out.printf("%d) 송금%n",               USER_TRANSFER);
 
         System.out.print("선택> ");
         return readInt();
@@ -61,11 +85,11 @@ public class ConsoleMenu {
     // 관리자 메뉴 출력
     public int showAdminMenu() {
         System.out.println("\n\n=== 관리자 메뉴 ===");
-        System.out.println("1) 전체 회원 목록 조회");
-        System.out.println("2) 소지금 추가");
-        System.out.println("3) 소지금 감소");
-        System.out.println("4) 등급 수동 변경");
-        System.out.println("5) 로그아웃");
+        System.out.printf("%d) 전체 회원 목록 조회%n",  ADMIN_LIST_MEMBERS);
+        System.out.printf("%d) 소지금 추가%n",        ADMIN_ADD_BALANCE);
+        System.out.printf("%d) 소지금 감소%n",        ADMIN_DEDUCT_BALANCE);
+        System.out.printf("%d) 등급 수동 변경%n",      ADMIN_CHANGE_LEVEL);
+        System.out.printf("%d) 로그아웃%n",           ADMIN_LOGOUT);
         System.out.print("선택> ");
         return readInt();
     }
@@ -94,14 +118,18 @@ public class ConsoleMenu {
         System.out.println("이름: " + member.getName());
         System.out.println("나이: " + member.getAge());
         System.out.println("전화번호: " + member.getPhoneNumber());
-        System.out.println("잔액: " + member.getBalance());
+        System.out.println("은행 잔액: " + member.getBankBalance());
+        System.out.println("소지금: " + member.getCashBalance());
         System.out.println("역할: " + member.getRole());
         System.out.println("회원 등급: " + member.getLevel());
 
     }
 
-    public void printBalance(Member member) {
-        System.out.println("잔액: " + member.getBalance());
+    public void printCashBalance(Member member) {
+        System.out.println("소지금 : " + member.getCashBalance());
+    }
+    public void printBankBalance(Member member) {
+        System.out.println("은행 잔액: " + member.getBankBalance());
     }
 
     public double promptAmount(String message) {

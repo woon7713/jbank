@@ -13,7 +13,9 @@ public class Member {
     private String name;
     private int age;
     private String phoneNumber;
-    private double balance;
+    private double bankBalance;
+    private double cashBalance;
+
     private Role role;
     private MembershipLevel level;
 
@@ -34,9 +36,18 @@ public class Member {
         this.name = name;
         this.age = age;
         this.phoneNumber = phoneNumber;
-        this.balance = 3000;
+        this.cashBalance = 3000; //소지금
+        this.bankBalance = 0; //은행 잔액
         this.role = Role.USER; // 기본값 USER
         this.level = MembershipLevel.BASIC; // 기본값 BASIC
+    }
+
+    public double getCashBalance() {
+        return cashBalance;
+    }
+
+    public void setCashBalance(double cashBalance) {
+        this.cashBalance = cashBalance;
     }
 
     public void setId(String id){
@@ -94,12 +105,12 @@ public class Member {
         this.phoneNumber = phoneNumber;
     }
 
-    public double getBalance() {
-        return balance;
+    public double getBankBalance() {
+        return bankBalance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void setBankBalance(double bankBalance) {
+        this.bankBalance = bankBalance;
     }
 
     public Role getRole() {
@@ -122,7 +133,8 @@ public class Member {
         if (amount <= 0) {
             throw new IllegalArgumentException("입금액은 0보다 커야합니다.");
         }
-        this.balance += amount;
+        this.cashBalance -= amount;
+        this.bankBalance += amount;
 
     }
 
@@ -130,10 +142,11 @@ public class Member {
         if (amount <= 0) {
             throw new IllegalArgumentException("출금액은 0원 초과여야 합니다.");
         }
-        if (amount > this.balance) {
+        if (amount > this.bankBalance) {
             throw new IllegalArgumentException("잔액이 부족합니다.");
         }
-        this.balance -= amount;
+        this.bankBalance -= amount;
+        this.cashBalance += amount;
 
     }
 
