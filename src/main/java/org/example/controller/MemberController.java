@@ -1,8 +1,11 @@
 package org.example.controller;
 
 import org.example.entity.Member;
+import org.example.entity.Role;
 import org.example.service.MemberService;
 import org.example.ui.ConsoleMenu;
+
+import java.util.List;
 
 import static org.example.ui.ConsoleMenu.*; // public static으로 선언한 상수 import
 
@@ -35,7 +38,26 @@ public class MemberController {
                     default:
                         consoleMenu.printInvalidSelection();
                 }
-            } else {
+            }else if (currentUser.getRole() == Role.ADMIN) { // 어드민 메뉴
+                switch (consoleMenu.showAdminMenu()) {
+                    case ConsoleMenu.ADMIN_LIST_MEMBERS:
+                        List<Member> all = memberService.findAllMembers();
+                        for (Member member : all) {
+                            consoleMenu.printMemberInfo(member);
+                            System.out.println("----------------------");
+                        }
+                        break;
+
+                    case ConsoleMenu.ADMIN_LOGOUT:
+                        consoleMenu.printLogout();
+                        currentUser = null;
+                        break;
+
+                    default:
+                        consoleMenu.printInvalidSelection();
+                }
+            }
+            else {
                 // 사용자 메뉴
                 switch (consoleMenu.showUserMenu()) {
                     case USER_LOGOUT: // 로그아웃

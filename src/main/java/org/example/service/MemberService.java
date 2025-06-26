@@ -5,6 +5,8 @@ import org.example.entity.Member;
 import org.example.repository.MemberRepository;
 import org.example.util.PasswordUtil;
 
+import java.util.List;
+
 public class MemberService {
 
     private final MemberRepository memberRepository; // 클래스 필드, 객체 담을 그릇
@@ -71,7 +73,9 @@ public class MemberService {
     }
 
 
-
+    public List<Member> findAllMembers() {
+        return memberRepository.findAll();
+    }
 
 
 

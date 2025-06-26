@@ -109,8 +109,7 @@ public class ConsoleMenu {
     }
 
     public void printLogout() {
-
-
+        System.out.println("로그아웃...");
     }
 
     public void printMemberInfo(Member member) {

@@ -1,0 +1,37 @@
+[ {
+  "id" : "49f77135-1a13-4673-ad12-f05e5f374ad7",
+  "loginId" : "admin",
+  "passwordHash" : "29bf92a106f5b90ce30e3bfd9aaf89527714a01ee89886c6b0b83ac08b5d9fa0",
+  "salt" : "XgHZ37twLozXxawBr00QnA==",
+  "name" : "관리자",
+  "age" : 0,
+  "phoneNumber" : "000-0000-0000",
+  "bankBalance" : 0.0,
+  "cashBalance" : 3000.0,
+  "role" : "ADMIN",
+  "level" : "BASIC"
+}, {
+  "id" : "a1a6a925-b603-4e0c-975b-118a93c371c2",
+  "loginId" : "test",
+  "passwordHash" : "f48a6dfe6313d3dc7b70d28a4512e60a11fb2e4c4beb1887aa6d3b79ff84b785",
+  "salt" : "PA25U7J7R6+eYYZF+zDtow==",
+  "name" : "test",
+  "age" : 20,
+  "phoneNumber" : "010-1234-1234",
+  "bankBalance" : 0.0,
+  "cashBalance" : 3000.0,
+  "role" : "USER",
+  "level" : "BASIC"
+}, {
+  "id" : "cacb24fc-323f-4e33-bd8a-5a1db57125b6",
+  "loginId" : "test2",
+  "passwordHash" : "dfdad96013e5ba3a572011247c4675c5ea7b0d4051ddb6605546a3a08e5ed511",
+  "salt" : "0V+sgc5Ah+9DnsNzlBpiHw==",
+  "name" : "test2",
+  "age" : 20,
+  "phoneNumber" : "010-4321-1234",
+  "bankBalance" : 0.0,
+  "cashBalance" : 3000.0,
+  "role" : "USER",
+  "level" : "BASIC"
+} ]
