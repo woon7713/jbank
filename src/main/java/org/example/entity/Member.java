@@ -6,7 +6,7 @@ import org.example.util.PasswordUtil;
 import java.util.UUID;
 
 public class Member {
-    private final String id = UUID.randomUUID().toString();
+    private String id;
     private String loginId;
     private String passwordHash;
     private String salt;
@@ -17,7 +17,14 @@ public class Member {
     private Role role;
     private MembershipLevel level;
 
+    // Jackjon 역직렬화용 기본생성자
+    public Member(){
+
+    }
+
+    // 신규 가입시 생성자
     public Member(String loginId, String rawPw, String name, int age, String phoneNumber) {
+        this.id =  UUID.randomUUID().toString();
         this.loginId = loginId;
 
         this.salt = PasswordUtil.generateSalt();
@@ -31,6 +38,9 @@ public class Member {
         this.role = Role.USER; // 기본값 USER
         this.level = MembershipLevel.BASIC; // 기본값 BASIC
     }
+
+    public void setId(String id){
+        this.id = id;}
 
     public String getId() {
         return id;
@@ -107,4 +117,25 @@ public class Member {
     public void setLevel(MembershipLevel level) {
         this.level = level;
     }
+
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("입금액은 0보다 커야합니다.");
+        }
+        this.balance += amount;
+
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("출금액은 0원 초과여야 합니다.");
+        }
+        if (amount > this.balance) {
+            throw new IllegalArgumentException("잔액이 부족합니다.");
+        }
+        this.balance -= amount;
+
+    }
+
+
 }

@@ -1,0 +1,12 @@
+[ {
+  "id" : "c73496f5-c1d4-41e7-8c9e-c2d621d816cb",
+  "loginId" : "test",
+  "passwordHash" : "e004220a22f72c4c05108ac689cd1241ed1fbb2f20b270430dc166aebb7fc57a",
+  "salt" : "4iGlRjEdDjon1OKqeVV0mA==",
+  "name" : "asf",
+  "age" : 124,
+  "phoneNumber" : "125",
+  "balance" : 3000.0,
+  "role" : "USER",
+  "level" : "BASIC"
+} ]

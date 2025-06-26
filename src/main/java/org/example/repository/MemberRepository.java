@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MemberRepository {
     void save(Member member);
+    void update(Member member);
 
     Member findByLoginId(String loginId);
 

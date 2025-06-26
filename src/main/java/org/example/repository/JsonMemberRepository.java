@@ -30,7 +30,7 @@ public class JsonMemberRepository implements MemberRepository {
                 members.addAll(loaded);
             }
         } catch (Exception e) {
-            throw new RuntimeException("json 로드 실패");
+            throw new RuntimeException("json 로드 실패", e);
         }
 
     }
@@ -49,6 +49,18 @@ public class JsonMemberRepository implements MemberRepository {
     public void save(Member member) {
         members.add(member);
         saveToJson();
+
+    }
+
+    @Override
+    public void update(Member member){
+        for (int i = 0; i < members.size(); i++) {
+            if (members.get(i).getId().equals(member.getId())) {
+                members.set(i, member);
+                break;
+            }
+        }
+        saveToJson();  // 변경된 내용을 JSON 파일에 반영
 
     }
 
