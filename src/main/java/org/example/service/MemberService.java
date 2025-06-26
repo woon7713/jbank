@@ -48,6 +48,29 @@ public class MemberService {
         memberRepository.update(member);
     }
 
+    public boolean transfer(String fromLoginId, String toLoginId, double amount) {
+        Member from = memberRepository.findByLoginId(fromLoginId);
+        Member to = memberRepository.findByLoginId(toLoginId);
+
+        if (from == null || to == null) {
+            return false;
+        }
+
+        if (amount <= 0 || from.getBalance() < amount) {
+            return false;
+        }
+
+        //입출금
+        from.withdraw(amount);
+        to.deposit(amount);
+
+        //저장소 업데이트
+        memberRepository.update(from);
+        memberRepository.update(to);
+
+        return true;
+    }
+
 
 
 

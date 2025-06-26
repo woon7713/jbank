@@ -72,7 +72,29 @@ public class MemberController {
                         break;
 
                     case 5: // 송금
-                        System.out.println("송금");
+                        //송금할 대상
+                        String transferTarget = consoleMenu.promptTransferTarget("송금할 대상 id: ");
+
+                        double amount = consoleMenu.promptAmount("송금할 금액: ");
+                        try{
+                            boolean transferOk = memberService.transfer(
+                                    currentUser.getLoginId(),
+                                    transferTarget,
+                                    amount
+                            );
+                            if (transferOk) {
+                                consoleMenu.printBalance(currentUser);
+                                System.out.println("송금이 완료되었습니다.");
+                            } else {
+                                System.out.println("송금 실패: 대상 계정이 없거나 잔액이 부족합니다.");
+                            }
+
+                            consoleMenu.printBalance(currentUser);
+
+                        }catch (IllegalArgumentException e) {
+                            System.out.println("송금 오류: " + e.getMessage());
+                        }
+
                         break;
 
                     default:

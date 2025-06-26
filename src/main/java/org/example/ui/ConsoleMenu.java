@@ -123,6 +123,19 @@ public class ConsoleMenu {
 
     }
 
+    public String promptTransferTarget(String message){
+        while (true) {
+            System.out.print(message);
+            String line = sc.nextLine().trim();
+            if (!line.isEmpty()) {
+                return line;
+            }
+            System.out.println("아이디를 입력 해주세요.");
+
+        }
+
+    }
+
 
     // 잘못된 선택 메시지
     public void printInvalidSelection() {
